@@ -54,9 +54,7 @@ def api(path, need_auth=True):
     req.add_header("Accept", "application/vnd.github+json")
     req.add_header("User-Agent", "skill-matrix-sync")
     t = token()
-    if need_auth:
-        if not t:
-            raise RuntimeError("NO_TOKEN")
+    if need_auth and t:
         req.add_header("Authorization", "Bearer " + t)
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
@@ -69,15 +67,46 @@ def api(path, need_auth=True):
 
 
 def list_repos():
-    repos, page = [], 1
+    """List owner's repos INCLUDING private ones. REST /users/{o}/repos never
+    returns private repos even for authenticated tokens — use GraphQL
+    viewer.repositories (viewer is authenticated; owner must equal token owner)."""
+    cursor, repos = None, []
+    if not token():  # degraded: no credential -> REST public listing only
+        page = 1
+        while True:
+            batch = api(f"/users/{OWNER}/repos?per_page=100&page={page}", need_auth=False) or []
+            if not batch:
+                break
+            for b in batch:
+                repos.append({"name": b["name"], "isPrivate": False, "visibility": "PUBLIC",
+                              "url": b["html_url"], "pushedAt": b.get("pushed_at", ""),
+                              "description": b.get("description"),
+                              "defaultBranchRef": {"name": b["default_branch"]}})
+            if len(batch) < 100:
+                break
+            page += 1
+        return repos
     while True:
-        batch = api(f"/users/{OWNER}/repos?per_page=100&page={page}&type=all") or []
-        if not batch:
+        after = f', after: "{cursor}"' if cursor else ""
+        q = {"query": "query{user(login:" + json.dumps(OWNER) + "){repositories(first:100"
+                      + after + ",orderBy:{field:PUSHED_AT,direction:DESC}){pageInfo{hasNextPage endCursor}"
+                        "nodes{name visibility isPrivate url pushedAt description"
+                        " defaultBranchRef{name}}}}}"}
+        req = urllib.request.Request("https://api.github.com/graphql",
+                                     data=json.dumps(q).encode(), method="POST")
+        req.add_header("Authorization", "Bearer " + token())
+        req.add_header("Content-Type", "application/json")
+        req.add_header("User-Agent", "skill-matrix-sync")
+        with urllib.request.urlopen(req, timeout=30) as r:
+            data = json.loads(r.read().decode())
+        if data.get("errors"):
+            raise RuntimeError("graphql: " + json.dumps(data["errors"])[:300])
+        nodes = (data.get("data", {}).get("user") or {}).get("repositories", {}).get("nodes", [])
+        repos.extend(nodes)
+        pinfo = (data.get("data", {}).get("user") or {}).get("repositories", {})
+        if not pinfo.get("pageInfo", {}).get("hasNextPage"):
             break
-        repos.extend(batch)
-        if len(batch) < 100:
-            break
-        page += 1
+        cursor = pinfo["pageInfo"]["endCursor"]
     return repos
 
 
@@ -126,20 +155,29 @@ def latest_release(repo):
             "asset": asset, "published": rel.get("published_at", "")}
 
 
+def repo_license(repo):
+    data = api(f"/repos/{repo}")
+    if not data:
+        return ""
+    return (data.get("license") or {}).get("spdx_id") or ""
+
+
 def collect():
     skills, warnings = [], []
-    for r in list_repos():
+    for r in list_repos():   # GraphQL nodes: name/visibility/isPrivate/url/pushedAt/description/defaultBranchRef
         name = r["name"]
         if name in EXEMPT:
             continue
-        if r.get("private") and SKIP_PRIVATE:
+        is_private = r.get("isPrivate") or r.get("visibility") == "PRIVATE"
+        if is_private and SKIP_PRIVATE:
             warnings.append({"repo": name, "warning": "private-skipped"})
             continue
-        marker = read_marker(name if r["owner"]["login"] == OWNER else f"{r['owner']['login']}/{name}")
+        full = f"{OWNER}/{name}"
+        marker = read_marker(full)
         if marker is None:
             continue
-        full = r["full_name"]
-        fm = read_frontmatter(full, r["default_branch"])
+        default_branch = (r.get("defaultBranchRef") or {}).get("name") or "main"
+        fm = read_frontmatter(full, default_branch)
         skill_name = fm.get("name") or marker.get("skill_name") or name
         if skill_name != name:
             warnings.append({"repo": full, "warning": f"name-mismatch frontmatter={skill_name} repo={name}"})
@@ -147,14 +185,15 @@ def collect():
         version = (rel or {}).get("tag", "").lstrip("v") or fm.get("version", "")
         if rel and fm.get("version") and rel["tag"] != "v" + fm["version"]:
             warnings.append({"repo": full, "warning": f"version-drift tag={rel['tag']} frontmatter={fm.get('version')}"})
+        lic = repo_license(full)
         entry = {
             "name": name, "full_name": full, "skill_name": skill_name,
             "version": version, "description": fm.get("description") or r.get("description") or "",
-            "license": (r.get("license") or {}).get("spdx_id") or "",
-            "visibility": "private" if r["private"] else "public",
-            "repo_url": r["html_url"], "clone_url": r["clone_url"],
-            "default_branch": r["default_branch"], "topics": r.get("topics", []),
-            "updated_at": r.get("pushed_at", ""),
+            "license": lic,
+            "visibility": "private" if is_private else "public",
+            "repo_url": r["url"], "clone_url": r["url"] + ".git",
+            "default_branch": default_branch, "topics": [],
+            "updated_at": r.get("pushedAt", ""),
             "release": rel, "marker": marker, "frontmatter_keys": sorted(fm.keys()),
         }
         skills.append(entry)
