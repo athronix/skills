@@ -16,7 +16,7 @@
         "cloneUrl": "https://github.com/athronix/skill-dev-git.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-07T19:28:45Z",
+        "pushedAt": "2026-11-07T20:15:47Z",
         "release": {
           "tag": "v1.0.1",
           "url": "https://github.com/athronix/skill-dev-git/releases/tag/v1.0.1",
@@ -66,6 +66,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-07T20:16:34+00:00"
+    "syncedAt": "2026-11-07T20:18:28+00:00"
   }
 }
