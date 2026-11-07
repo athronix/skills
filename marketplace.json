@@ -1,0 +1,20 @@
+{
+  "name": "athronix-skills",
+  "description": "athronix 技能矩阵聚合市场：每个 skill 独立 repo（athronix/<skill>，根 .skill 标记），marketplace.json 与 <skill>.link.json 由 CI scan_and_sync 全量重建，请勿手工编辑。Aggregate marketplace of athronix skill repos; machine-generated.",
+  "owner": {
+    "name": "athronix"
+  },
+  "plugins": [],
+  "x-athronix-market": {
+    "marketplaceRepo": "athronix/skills",
+    "skillRepoPattern": "github.com/athronix/<skill> (root .skill marker = skill repo)",
+    "markerSpec": {
+      "file": ".skill",
+      "format": "single-line JSON pointer, never gitignored"
+    },
+    "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
+    "consumerNotes": "Any AI agent may install a skill: clone repo via <skill>.link.json (private needs PAT) or download release asset zip.",
+    "syncedBy": "github.com/athronix/skills/.github/workflows/sync-marketplace.yml",
+    "syncedAt": "(pending first CI sync)"
+  }
+}

@@ -1,0 +1,42 @@
+name: sync-marketplace
+on:
+  schedule:
+    - cron: "17 2 * * *"   # 每日 02:17 UTC（≈北京 10:17），错峰
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: trigger reason
+        required: false
+        default: manual
+  push:
+    branches: [main]
+    paths-ignore: ["marketplace.json", "**/*.link.json"]   # 防自触发循环（与 [skip ci] 双保险）
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: scan owner repos (PAT sees private siblings; default GITHUB_TOKEN cannot)
+        env:
+          GH_TOKEN: ${{ secrets.GH_READ_TOKEN }}   # fine-grained PAT: Contents read, All repositories
+          OWNER: athronix                         
+          MARKETPLACE: athronix/skills            
+          WORKDIR: ${{ github.workspace }}
+        run: python scripts/scan_and_sync.py sync
+      - name: commit if changed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -am "chore(marketplace): [skip ci] auto-sync from athronix skill repos"
+            git push origin HEAD:main
+          else
+            echo "marketplace already in sync"
+          fi
