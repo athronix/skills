@@ -13,6 +13,9 @@ on:
     paths-ignore: ["marketplace.json", "**/*.link.json"]   # 防自触发循环（与 [skip ci] 双保险）
 permissions:
   contents: write
+concurrency:
+  group: marketplace-sync
+  cancel-in-progress: false   # 串行化：并发 release 会 push 竞态
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -34,9 +37,12 @@ jobs:
       - name: commit if changed
         run: |
           if [ -n "$(git status --porcelain)" ]; then
+            git add -A
             git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-              add -A && git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "chore(marketplace): [skip ci] auto-sync from athronix skill repos"
-            git push origin HEAD:main
+              commit -m "chore(marketplace): [skip ci] auto-sync from athronix skill repos"
+            git pull --rebase origin main && git push origin HEAD:main
           else
             echo "marketplace already in sync"
           fi
+          # pull --rebase 兜底：sync 运行期间远端可能被上一轮 CI 推进（fetch first 竞态）；
+          # checkout persist-credentials:true 已把凭据写入 remote，pull 直接可用
