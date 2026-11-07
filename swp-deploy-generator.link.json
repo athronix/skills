@@ -1,0 +1,10 @@
+{
+  "skill": "swp-deploy-generator",
+  "repo": "https://github.com/athronix/swp-deploy-generator",
+  "clone": "https://github.com/athronix/swp-deploy-generator.git",
+  "visibility": "private",
+  "version": "1.3.0",
+  "defaultBranch": "main",
+  "release": "https://github.com/athronix/swp-deploy-generator/releases/tag/v1.3.0",
+  "package": "https://github.com/athronix/swp-deploy-generator/releases/download/v1.3.0/swp-deploy-generator-1.3.0.zip"
+}

@@ -1,0 +1,10 @@
+{
+  "skill": "skill-dev-git",
+  "repo": "https://github.com/athronix/skill-dev-git",
+  "clone": "https://github.com/athronix/skill-dev-git.git",
+  "visibility": "private",
+  "version": "1.0.1",
+  "defaultBranch": "main",
+  "release": "https://github.com/athronix/skill-dev-git/releases/tag/v1.0.1",
+  "package": "https://github.com/athronix/skill-dev-git/releases/download/v1.0.1/skill-dev-git-1.0.1.zip"
+}
