@@ -35,7 +35,7 @@ jobs:
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-              commit -am "chore(marketplace): [skip ci] auto-sync from athronix skill repos"
+              add -A && git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "chore(marketplace): [skip ci] auto-sync from athronix skill repos"
             git push origin HEAD:main
           else
             echo "marketplace already in sync"
