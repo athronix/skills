@@ -33,7 +33,7 @@
     {
       "name": "swp-deploy-generator",
       "description": "为软件项目构建标准化部署套件：统一入口 + 三维矩阵（host/docker × 本机/远程 × 源码/仓库/发布包）+ 8 动作（deploy/undeploy/start/stop/restart/status/logs/health）+ .env 默认值与 --deploy-* 覆盖 + 8×8 全矩阵计时验证与避坑手册。当用户说'给项目搞部署脚本'、'做部署套件'、'设计 deploy 统一入口'、'部署体系怎么测试验证'、'支持本机和远程源码和发布包的部署'时使用。模板为 bash+ssh+docker 路线并注明 k8s 等他栈扩展位。",
-      "version": "1.3.0",
+      "version": "1.4.0",
       "source": "https://github.com/athronix/swp-deploy-generator",
       "x-athronix": {
         "fullName": "athronix/swp-deploy-generator",
@@ -41,12 +41,12 @@
         "cloneUrl": "https://github.com/athronix/swp-deploy-generator.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-07T19:29:19Z",
+        "pushedAt": "2026-11-09T09:10:55Z",
         "release": {
-          "tag": "v1.3.0",
-          "url": "https://github.com/athronix/swp-deploy-generator/releases/tag/v1.3.0",
-          "asset": "https://github.com/athronix/swp-deploy-generator/releases/download/v1.3.0/swp-deploy-generator-1.3.0.zip",
-          "published": "2026-11-07T19:29:23Z"
+          "tag": "v1.4.0",
+          "url": "https://github.com/athronix/swp-deploy-generator/releases/tag/v1.4.0",
+          "asset": "https://github.com/athronix/swp-deploy-generator/releases/download/v1.4.0/swp-deploy-generator-1.4.0.zip",
+          "published": "2026-11-09T09:11:01Z"
         },
         "marker": {
           "format": "skill-marker/v1",
@@ -66,6 +66,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-08T09:09:18+00:00"
+    "syncedAt": "2026-11-09T09:12:12+00:00"
   }
 }
