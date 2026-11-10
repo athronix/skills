@@ -12,9 +12,11 @@
 `GET https://raw.githubusercontent.com/athronix/skills/main/<skill-name>.link.json`
 
 取字段：`repo` / `clone` / `visibility` / `version` / `package`。
-（`version` 是不带 v 前缀的语义版本；release tag 与镜像式产物名均为 `v<version>`。）
+（`version` 不带 v 前缀；release tag 为 `v<version>`。）
 
-- 文件 404 → 兜底：`GET https://raw.githubusercontent.com/athronix/skills/main/marketplace.json`，在 `plugins[]` 找 `name==<skill-name>` 的条目（`source` 即 repo，`x-athronix.release.asset` 即 package）。
+- **raw 404 别急着下结论**：raw.githubusercontent.com 会缓存 404（负缓存），新发布/刚生成的文件常出现"假 404"。收到 404 先走实时 API 复核一次：
+  `GET https://api.github.com/repos/athronix/skills/contents/<skill-name>.link.json`（带 `Accept: application/vnd.github.raw` 头，公开仓可匿名）→ 200 则直接采用其内容继续；仍 404 才认定文件不存在。
+- 确认不存在 → 兜底：`GET https://api.github.com/repos/athronix/skills/contents/marketplace.json`（同上带 raw accept 头），在 `plugins[]` 找 `name==<skill-name>` 的条目（`source` 即 repo，`x-athronix.release.asset` 即 package）。
 - 仍找不到 → 向用户报告「该 skill 未在 athronix 市场注册」并停止。**不要猜测近似名字的仓。**
 
 ## 2. 凭据（skill 仓默认 private）
