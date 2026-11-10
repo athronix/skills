@@ -8,7 +8,7 @@
     {
       "name": "skill-dev-git",
       "description": "管理 athronix 技能矩阵的研发与发布通道：每个 skill 独立项目(~/Documents/Projects/skills/<skill>)+独立 repo(athronix/<skill>，.skill 标记)+母项目 symlink 关联+使用侧挂载+聚合仓 athronix/skills marketplace.json 自动同步(CI 单一写者+cron 兜底)+双通道提交纪律与巡检。当用户说'新建 skill 项目'、'把 skill 做成独立仓库'、'从当前项目派生 skill'、'发布 skill'、'skill 提交 push'、'同步 marketplace'、'检查 skill 未提交改动'时使用。不用于 skill 内容创作本身。",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "source": "https://github.com/athronix/skill-dev-git",
       "x-athronix": {
         "fullName": "athronix/skill-dev-git",
@@ -18,10 +18,10 @@
         "topics": [],
         "pushedAt": "2026-11-09T10:08:49Z",
         "release": {
-          "tag": "v1.1.1",
-          "url": "https://github.com/athronix/skill-dev-git/releases/tag/v1.1.1",
-          "asset": "https://github.com/athronix/skill-dev-git/releases/download/v1.1.1/skill-dev-git-1.1.1.zip",
-          "published": "2026-11-09T10:08:54Z"
+          "tag": "v1.1.2",
+          "url": "https://github.com/athronix/skill-dev-git/releases/tag/v1.1.2",
+          "asset": "https://github.com/athronix/skill-dev-git/releases/download/v1.1.2/skill-dev-git-1.1.2.zip",
+          "published": "2026-11-10T03:41:51Z"
         },
         "marker": {
           "format": "skill-marker/v1",
@@ -66,6 +66,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-10T02:28:47+00:00"
+    "syncedAt": "2026-11-10T03:42:29+00:00"
   }
 }
