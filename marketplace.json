@@ -116,6 +116,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-11T09:15:02+00:00"
+    "syncedAt": "2026-11-11T09:34:27+00:00"
   }
 }
