@@ -3,8 +3,8 @@
   "repo": "https://github.com/athronix/git-skill",
   "clone": "https://github.com/athronix/git-skill.git",
   "visibility": "private",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "defaultBranch": "main",
-  "release": "https://github.com/athronix/git-skill/releases/tag/v1.0.0",
-  "package": "https://github.com/athronix/git-skill/releases/download/v1.0.0/git-skill-1.0.0.zip"
+  "release": "https://github.com/athronix/git-skill/releases/tag/v1.1.0",
+  "package": "https://github.com/athronix/git-skill/releases/download/v1.1.0/git-skill-1.1.0.zip"
 }

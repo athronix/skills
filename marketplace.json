@@ -7,8 +7,8 @@
   "plugins": [
     {
       "name": "git-skill",
-      "description": "Git 操作与双平台发布规范：原子化提交、分支/PR/发版、首次推送、多远程与 worktree。默认提交推 github.com/athronix 私有仓并镜像到 gitee.com/athronix 私有仓；GitHub 优先 gh CLI，Gitee 优先 SSH，均失败才降级到 API 与 PAT。当用户说「提交一下，记得推 GitHub 和 Gitee」「规范地提交并推送」「建个分支、提个 PR」「这个仓库首次推送怎么弄」「查下这个 PR 的 CI 挂在哪」「镜像到码云」时使用。不用于纯 Git 概念讲解或撰写 Git 教程。",
-      "version": "1.0.0",
+      "description": "Git 操作与双平台发布规范：原子化提交、分支/PR/发版、首次推送、多远程与 worktree。默认提交推 github.com/athronix 私有仓并镜像到 gitee.com/athronix 私有仓；GitHub 平台操作优先 gh CLI，Gitee 平台操作优先官方 gitee CLI，git 传输走 SSH，均失败才降级到 API 与 PAT。当用户说「提交一下，记得推 GitHub 和 Gitee」「规范地提交并推送」「建个分支、提个 PR」「这个仓库首次推送怎么弄」「查下这个 PR 的 CI 挂在哪」「镜像到码云」时使用。不用于纯 Git 概念讲解或撰写 Git 教程。",
+      "version": "1.1.0",
       "source": "https://github.com/athronix/git-skill",
       "x-athronix": {
         "fullName": "athronix/git-skill",
@@ -16,12 +16,12 @@
         "cloneUrl": "https://github.com/athronix/git-skill.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-11T04:12:40Z",
+        "pushedAt": "2026-11-11T07:12:49Z",
         "release": {
-          "tag": "v1.0.0",
-          "url": "https://github.com/athronix/git-skill/releases/tag/v1.0.0",
-          "asset": "https://github.com/athronix/git-skill/releases/download/v1.0.0/git-skill-1.0.0.zip",
-          "published": "2026-11-11T04:12:48Z"
+          "tag": "v1.1.0",
+          "url": "https://github.com/athronix/git-skill/releases/tag/v1.1.0",
+          "asset": "https://github.com/athronix/git-skill/releases/download/v1.1.0/git-skill-1.1.0.zip",
+          "published": "2026-11-11T07:12:54Z"
         },
         "marker": {
           "format": "skill-marker/v1",
@@ -91,7 +91,7 @@
         "cloneUrl": "https://github.com/athronix/winvm-plugin-deploy.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-10T10:40:33Z",
+        "pushedAt": "2026-11-11T06:53:37Z",
         "release": {
           "tag": "v1.3.1",
           "url": "https://github.com/athronix/winvm-plugin-deploy/releases/tag/v1.3.1",
@@ -116,6 +116,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-11T04:14:11+00:00"
+    "syncedAt": "2026-11-11T07:15:50+00:00"
   }
 }
