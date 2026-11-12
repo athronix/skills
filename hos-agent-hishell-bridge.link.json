@@ -1,0 +1,10 @@
+{
+  "skill": "hos-agent-hishell-bridge",
+  "repo": "https://github.com/athronix/hos-agent-hishell-bridge",
+  "clone": "https://github.com/athronix/hos-agent-hishell-bridge.git",
+  "visibility": "private",
+  "version": "1.0.0",
+  "defaultBranch": "main",
+  "release": "https://github.com/athronix/hos-agent-hishell-bridge/releases/tag/v1.0.0",
+  "package": "https://github.com/athronix/hos-agent-hishell-bridge/releases/download/v1.0.0/hos-agent-hishell-bridge-1.0.0.zip"
+}
