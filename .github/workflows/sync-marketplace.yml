@@ -1,4 +1,3 @@
-name: sync-marketplace
 on:
   schedule:
     - cron: "17 2 * * *"   # 每日 02:17 UTC（≈北京 10:17），错峰
@@ -46,3 +45,20 @@ jobs:
           fi
           # pull --rebase 兜底：sync 运行期间远端可能被上一轮 CI 推进（fetch first 竞态）；
           # checkout persist-credentials:true 已把凭据写入 remote，pull 直接可用
+      - name: trigger gitee mirror pull
+        env:
+          GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}   # Gitee 私人令牌（仓库推送权限）；未配置则优雅跳过
+          MIRROR_R: ${{ vars.GITEE_MIRROR_REPO }}   # repo 自定义 variable：Gitee 镜像仓全名；留空跳过
+        run: |
+          # Gitee "与 GitHub 同步" Pull 镜像的手动触发端点（官方 API，实测 204）。
+          if [ -z "${MIRROR_R:-}" ]; then echo "mirror disabled (vars.GITEE_MIRROR_REPO empty)"; exit 0; fi
+          if [ -z "${GITEE_TOKEN:-}" ]; then echo "::warning::GITEE_TOKEN secret not set; mirror pull skipped"; exit 0; fi
+          # endpoint 不带前导斜杠；重试 1 次，仍失败则本步骤失败使 run 变红（可观测）。
+          for i in 1 2; do
+            code="$(curl -s -o /dev/null -w '%{http_code}' -X POST \
+              "https://gitee.com/api/v5/repos/$MIRROR_R/remote_mirror/pull?access_token=${GITEE_TOKEN}")"
+            echo "gitee mirror pull attempt $i: http=$code"
+            if [ "$code" = "204" ] || [ "$code" = "200" ]; then exit 0; fi
+            sleep 5
+          done
+          echo "::error::gitee mirror pull failed (last http=$code)"; exit 1
