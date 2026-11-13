@@ -41,7 +41,7 @@
         "cloneUrl": "https://github.com/athronix/hos-agent-hishell-bridge.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-12T03:22:30Z",
+        "pushedAt": "2026-11-13T06:56:01Z",
         "release": {
           "tag": "v1.0.0",
           "url": "https://github.com/athronix/hos-agent-hishell-bridge/releases/tag/v1.0.0",
@@ -141,6 +141,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-13T06:52:47+00:00"
+    "syncedAt": "2026-11-13T09:43:15+00:00"
   }
 }
