@@ -3,8 +3,8 @@
   "repo": "https://github.com/athronix/winvm-plugin-deploy",
   "clone": "https://github.com/athronix/winvm-plugin-deploy.git",
   "visibility": "private",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "defaultBranch": "main",
-  "release": "https://github.com/athronix/winvm-plugin-deploy/releases/tag/v1.8.0",
-  "package": "https://github.com/athronix/winvm-plugin-deploy/releases/download/v1.8.0/winvm-plugin-deploy-1.8.0.zip"
+  "release": "https://github.com/athronix/winvm-plugin-deploy/releases/tag/v1.9.0",
+  "package": "https://github.com/athronix/winvm-plugin-deploy/releases/download/v1.9.0/winvm-plugin-deploy-1.9.0.zip"
 }
