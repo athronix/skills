@@ -107,8 +107,8 @@
     },
     {
       "name": "winvm-plugin-deploy",
-      "description": "WinVM Bridge（workbuddy-virtual-win-plugin）鸿蒙宿主与 Windows VM 双端安装/卸载/复验的唯一执行权威。v1.6.0 起 SSH 免密通道生命周期能力**内置**（独立技能 hos-winvm-ssh-tunnel v2.3.0 的 SKILL.md 全文 + 6 脚本 + 5 参考文档已整体并入，部署只需安装本技能一个，无需再装第二个 skill）+ 三流程职责定界：卸载=host 端+vm 端+ssh 通道三段且通道坏时绝不重建（VM 侧两件合并成一个用户脚本）；部署=通道保障（在则不建，不在才引导内置一键脚本让用户配合）+两端自动部署；verify=deploy ready 后由 WorkBuddy 自调的健康与功能性监测。封装 roundtrip.sh 一键往返模板、channel.sh 通道单一动作、VM 侧本地卸载 ps1 与合并包、ssh2 后端、远端 PowerShell 铁律执行器、分步计时与问题百科。Use when: 部署/重装/卸载 winvm-plugin；按技能 URL 安装/卸载/验证；VM ssh 连不上、通道已毁、发布包下载失",
-      "version": "1.6.0",
+      "description": "WinVM Bridge（workbuddy-virtual-win-plugin）鸿蒙宿主与 Windows VM 双端安装/卸载/复验的唯一执行权威；v1.7.0 起提供一次执行的统一入口 run-flow.sh + 环境事实前置冻结 context.sh + 动作级日志/过程执行环节信息表（默认前台只打最终表）。v1.6.0 起 SSH 免密通道生命周期能力**内置**（独立技能 hos-winvm-ssh-tunnel v2.3.0 的 SKILL.md 全文 + 6 脚本 + 5 参考文档已整体并入，部署只需安装本技能一个，无需再装第二个 skill）+ 三流程职责定界：卸载=host 端+vm 端+ssh 通道三段且通道坏时绝不重建（VM 侧两件合并成一个用户脚本）；部署=通道保障（在则不建，不在才引导内置一键脚本让用户配合）+两端自动部署；verify=deploy ready 后由 WorkBuddy 自调的健康与功能性监测。封装 roundtrip.sh 一键往返模板、channel.sh 通道单一动作、VM 侧本地卸载 ps1 与合并包、ssh2 后端、远端 PowerShell 铁律执行",
+      "version": "1.7.0",
       "source": "https://github.com/athronix/winvm-plugin-deploy",
       "x-athronix": {
         "fullName": "athronix/winvm-plugin-deploy",
@@ -116,12 +116,12 @@
         "cloneUrl": "https://github.com/athronix/winvm-plugin-deploy.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-13T06:51:44Z",
+        "pushedAt": "2026-11-13T10:39:55Z",
         "release": {
-          "tag": "v1.6.0",
-          "url": "https://github.com/athronix/winvm-plugin-deploy/releases/tag/v1.6.0",
-          "asset": "https://github.com/athronix/winvm-plugin-deploy/releases/download/v1.6.0/winvm-plugin-deploy-1.6.0.zip",
-          "published": "2026-11-13T06:51:50Z"
+          "tag": "v1.7.0",
+          "url": "https://github.com/athronix/winvm-plugin-deploy/releases/tag/v1.7.0",
+          "asset": "https://github.com/athronix/winvm-plugin-deploy/releases/download/v1.7.0/winvm-plugin-deploy-1.7.0.zip",
+          "published": "2026-11-13T10:40:01Z"
         },
         "marker": {
           "format": "skill-marker/v1",
@@ -141,6 +141,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-13T09:43:15+00:00"
+    "syncedAt": "2026-11-13T10:41:08+00:00"
   }
 }
