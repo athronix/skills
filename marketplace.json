@@ -107,8 +107,8 @@
     },
     {
       "name": "winvm-plugin-deploy",
-      "description": "WinVM Bridge（workbuddy-virtual-win-plugin）鸿蒙宿主与 Windows VM 双端安装/卸载/复验的唯一执行权威；v1.9.0 起把「传输预算」与「PowerShell 载荷执行预算」解耦（`VM_PS_TIMEOUT` 默认 180s，远端探针自身耗时 47~56s 曾被 30s 传输窗杀成假红）；v1.8.0 起内置自检门禁 scripts/selfcheck.sh（16 项断言 + --mutate 变异自证，改完先跑它）；v1.7.0 起提供一次执行的统一入口 run-flow.sh + 环境事实前置冻结 context.sh + 动作级日志/过程执行环节信息表（默认前台只打最终表）。v1.6.0 起 SSH 免密通道生命周期能力**内置**（独立技能 hos-winvm-ssh-tunnel v2.3.0 的 SKILL.md 全文 + 6 脚本 + 5 参考文档已整体并入，部署只需安装本技能一个，无需再装第二个 skill）+ 三流程职责定界：卸载=host 端+vm 端+ssh 通道三段且通道坏时绝不重建（VM 侧两件合并成一个用户脚本）；部署=通道保障（",
-      "version": "1.9.2",
+      "description": "WinVM Bridge（workbuddy-virtual-win-plugin）鸿蒙宿主 + Windows VM 双端部署/卸载/复验的唯一执行权威。v2.0.0 起结构定为 5 步部署（①建 ssh 免密通道 ②取包装 host 端 ③起 tunnel 并验证 ④装 VM 端并起 mcp/a2a ⑤verify）+ 3 步卸载（①停 tunnel 卸 host ②停 VM 服务卸 VM 模块 ③拆 ssh 通道 --remove-ssh-tunnel yes|no 默认 no）。每步一个脚本、可单独重跑、失败定点重来；第 1 步失败时只给用户一条可整段粘贴的 VM 管理员 PowerShell 命令（脚本由 VM 从远端下载就近留存，卸载时同一条 -Rollback）。Use when: 部署/重装/卸载/复验 winvm-plugin；按技能 URL 安装或卸载；VM ssh 连不上、免密通道要建或要拆、发布包下载失败、插件健康复验。",
+      "version": "2.0.0",
       "source": "https://github.com/athronix/winvm-plugin-deploy",
       "x-athronix": {
         "fullName": "athronix/winvm-plugin-deploy",
@@ -116,12 +116,12 @@
         "cloneUrl": "https://github.com/athronix/winvm-plugin-deploy.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-16T03:13:20Z",
+        "pushedAt": "2026-11-16T10:40:08Z",
         "release": {
-          "tag": "v1.9.2",
-          "url": "https://github.com/athronix/winvm-plugin-deploy/releases/tag/v1.9.2",
-          "asset": "https://github.com/athronix/winvm-plugin-deploy/releases/download/v1.9.2/winvm-plugin-deploy-1.9.2.zip",
-          "published": "2026-11-16T03:13:25Z"
+          "tag": "v2.0.0",
+          "url": "https://github.com/athronix/winvm-plugin-deploy/releases/tag/v2.0.0",
+          "asset": "https://github.com/athronix/winvm-plugin-deploy/releases/download/v2.0.0/winvm-plugin-deploy-2.0.0.zip",
+          "published": "2026-11-16T10:40:14Z"
         },
         "marker": {
           "format": "skill-marker/v1",
@@ -141,6 +141,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-16T09:54:32+00:00"
+    "syncedAt": "2026-11-16T10:41:29+00:00"
   }
 }
