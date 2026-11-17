@@ -2,7 +2,7 @@
   "skill": "winvm-plugin-deploy",
   "repo": "https://github.com/athronix/winvm-plugin-deploy",
   "clone": "https://github.com/athronix/winvm-plugin-deploy.git",
-  "visibility": "private",
+  "visibility": "public",
   "version": "2.0.0",
   "defaultBranch": "main",
   "release": "https://github.com/athronix/winvm-plugin-deploy/releases/tag/v2.0.0",
