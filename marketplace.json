@@ -33,7 +33,7 @@
     {
       "name": "hos-agent-hishell-bridge",
       "description": "在 HarmonyOS NEXT 上让 AI Agent 沙箱（WorkBuddy，域 workbuddy）获得操作 HiShell 沙箱（域 hishell）的能力：从 app-shell-bridge 的发布版（GitHub Release，当前基线 v3.3.0）安装、双端各跑一次 install、拉起常驻服务、成对授权，双向验收通过后即可在 agent 侧直接下命令/派 AI 任务到 HiShell 内执行并取回输出。含身份绑定（APP_ID）、TOKEN 带外分发、verify 15 项判定、失败速查与升级路径。Use when: 让鸿蒙 AI Agent 到 HiShell 里跑命令或建工具；打通 workbuddy ⇄ hishell 命令通道；跨 App 命令总线怎么装怎么配；asb-* submit 一直 waiting / 报 undeclared / signature mismatch；换新版本发布版重建通道。不覆盖日常命令全量手册（看发布包内 docs/）、不突破 OS 沙箱隔离、不处理 Windows VM SSH 通道。",
-      "version": "2.0.1",
+      "version": "2.1.0",
       "source": "https://github.com/athronix/hos-agent-hishell-bridge",
       "x-athronix": {
         "fullName": "athronix/hos-agent-hishell-bridge",
@@ -41,12 +41,12 @@
         "cloneUrl": "https://github.com/athronix/hos-agent-hishell-bridge.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-18T09:45:59Z",
+        "pushedAt": "2026-11-18T11:33:54Z",
         "release": {
-          "tag": "v2.0.1",
-          "url": "https://github.com/athronix/hos-agent-hishell-bridge/releases/tag/v2.0.1",
-          "asset": "https://github.com/athronix/hos-agent-hishell-bridge/releases/download/v2.0.1/hos-agent-hishell-bridge-2.0.1.zip",
-          "published": "2026-11-18T09:46:11Z"
+          "tag": "v2.1.0",
+          "url": "https://github.com/athronix/hos-agent-hishell-bridge/releases/tag/v2.1.0",
+          "asset": "https://github.com/athronix/hos-agent-hishell-bridge/releases/download/v2.1.0/hos-agent-hishell-bridge-2.1.0.zip",
+          "published": "2026-11-18T11:34:00Z"
         },
         "marker": {
           "format": "skill-marker/v1",
@@ -107,7 +107,7 @@
     },
     {
       "name": "winvm-plugin-deploy",
-      "description": "WinVM Bridge（workbuddy-virtual-win-plugin）鸿蒙宿主 + Windows VM 双端部署/卸载/复验的唯一执行权威。结构 = 5 步部署（①建 ssh 免密通道 ②取包装 host 端 ③起 tunnel 并验证 ④装 VM 端（含全局 npm 上游 agent-browser/agent-desktop）、起 mcp/a2a service、上游工具面判据 ⑤verify（三探针 + 终态矩阵 + 上游工具面））+ 3 步卸载（①停 tunnel 卸 host ②停 VM 服务 + 卸 VM 模块 + 卸上游 CLI ③拆 ssh 通道 --remove-ssh-tunnel yes|no 默认 no）。每步一个脚本、可单独重跑、失败定点重来；第 1 步失败时只给用户一条可整段粘贴的 VM 管理员 PowerShell 命令（远端脚本只从技能仓取、Gitee/GitHub 双源回退，全程无需 token；-File 执行复制自身，irm|iex 执行则自下载落盘到 VM 固定路径，卸载时同一条 -Rollback）。Use when: 部署/重装/卸载/复验 winv",
+      "description": "WinVM Bridge（workbuddy-virtual-win-plugin）鸿蒙宿主 + Windows VM 双端部署/卸载/复验的唯一执行权威。结构 = 5 步部署（①建 ssh 免密通道 ②取包装 host 端 ③起 tunnel 并验证 ④装 VM 端（含全局 npm 上游 agent-browser/agent-desktop）、起 mcp/a2a service、上游工具面判据 ⑤verify（三探针 + 终态矩阵 + 上游工具面））+ 3 步卸载（①停 tunnel 卸 host ②停 VM 服务 + 卸 VM 模块 + 卸上游 CLI ③拆 ssh 通道 --remove-ssh-tunnel yes|no 默认 no）；--purge-all 一键回到裸机（②追加 2e 运行时深清 node/codebuddy/私钥，③的同一 SYSTEM 任务里卸 sshd MSI 与两处 authorized_keys）。每步一个脚本、可单独重跑、失败定点重来；第 1 步失败时只给用户一条可整段粘贴的 VM 管理员 PowerShell 命令（远端脚本只从技能仓取、Gitee/GitHub 双源",
       "version": "2.3.0",
       "source": "https://github.com/athronix/winvm-plugin-deploy",
       "x-athronix": {
@@ -116,7 +116,7 @@
         "cloneUrl": "https://github.com/athronix/winvm-plugin-deploy.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-18T04:11:08Z",
+        "pushedAt": "2026-11-18T11:20:13Z",
         "release": {
           "tag": "v2.3.0",
           "url": "https://github.com/athronix/winvm-plugin-deploy/releases/tag/v2.3.0",
@@ -141,6 +141,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-18T10:19:41+00:00"
+    "syncedAt": "2026-11-18T11:35:29+00:00"
   }
 }
