@@ -32,8 +32,8 @@
     },
     {
       "name": "hos-agent-hishell-bridge",
-      "description": "在 HarmonyOS NEXT 上从零构建并验收 WorkBuddy（AI Agent 沙箱）⇄ HiShell 沙箱之间的双向命令通道：基于 app-shell-bridge v3.1.0 文件命令总线完成双端部署（同 TOKEN / --yes 一行 / verify 15 项）、ctl 常驻与自愈、出向+入向成对 rel grant 授权、doctor 子钥指纹对拍、正反向 submit 回环，并给出可判定的验收报告与判例式排障。Use when: 把 WorkBuddy 和 HiShell 的命令通道打通；让 AI Agent 到 HiShell 沙箱里跑命令；跨 App 命令总线怎么装、双端 TOKEN 怎么配；asb-workbuddy submit 一直 waiting 或报 undeclared；按 app-shell-bridge 最新版本重建 hishell ⇄ workbuddy 双域。不覆盖日常提交查询、不突破 OS 沙箱隔离、不处理 Windows VM SSH 通道。",
-      "version": "1.1.0",
+      "description": "在 HarmonyOS NEXT 上让 AI Agent 沙箱（WorkBuddy，域 workbuddy）获得操作 HiShell 沙箱（域 hishell）的能力：从 app-shell-bridge 的**发布版**（GitHub Release，当前基线 v3.3.0）安装、双端各跑一次 install、拉起常驻服务、成对授权，双向验收通过后即可在 agent 侧直接下命令/派 AI 任务到 HiShell 内执行并取回输出。含身份绑定（APP_ID）、TOKEN 带外分发、verify 15 项判定、失败速查与升级路径。Use when: 让鸿蒙 AI Agent 到 HiShell 里跑命令或建工具；打通 workbuddy ⇄ hishell 命令通道；跨 App 命令总线怎么装怎么配；asb-* submit 一直 waiting / 报 undeclared / signature mismatch；换新版本发布版重建通道。不覆盖日常命令全量手册（看发布包内 docs/）、不突破 OS 沙箱隔离、不处理 Windows VM SSH 通道。",
+      "version": "2.0.0",
       "source": "https://github.com/athronix/hos-agent-hishell-bridge",
       "x-athronix": {
         "fullName": "athronix/hos-agent-hishell-bridge",
@@ -41,12 +41,12 @@
         "cloneUrl": "https://github.com/athronix/hos-agent-hishell-bridge.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-18T07:49:28Z",
+        "pushedAt": "2026-11-18T09:40:51Z",
         "release": {
-          "tag": "v1.1.0",
-          "url": "https://github.com/athronix/hos-agent-hishell-bridge/releases/tag/v1.1.0",
-          "asset": "https://github.com/athronix/hos-agent-hishell-bridge/releases/download/v1.1.0/hos-agent-hishell-bridge-1.1.0.zip",
-          "published": "2026-11-18T07:49:36Z"
+          "tag": "v2.0.0",
+          "url": "https://github.com/athronix/hos-agent-hishell-bridge/releases/tag/v2.0.0",
+          "asset": "https://github.com/athronix/hos-agent-hishell-bridge/releases/download/v2.0.0/hos-agent-hishell-bridge-2.0.0.zip",
+          "published": "2026-11-18T09:40:56Z"
         },
         "marker": {
           "format": "skill-marker/v1",
@@ -141,6 +141,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-18T07:50:47+00:00"
+    "syncedAt": "2026-11-18T09:42:08+00:00"
   }
 }
