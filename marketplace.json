@@ -33,7 +33,7 @@
     {
       "name": "hos-agent-hishell-bridge",
       "description": "打通并运维 HarmonyOS NEXT 上「AI Agent 沙箱 → HiShell 沙箱」的命令通道：用 app-shell-bridge 的发布版（GitHub Release，基线 v3.3.0）在双端各自安装、绑定 APP_ID、拉起常驻服务、成对授权，双向回环验收通过后即可由 Agent 下命令或派任务到 HiShell 执行并取回输出。本技能应在以下情形使用：需要让鸿蒙 AI Agent 到 HiShell 里跑命令、读文件、装工具；通道疑似故障（submit 一直 waiting、rule=undeclared、signature mismatch、identity_mismatch）；需要换发布版重建或升级通道。不承担日常命令全量参考（见发布包 docs/）、不绕过 OS 沙箱隔离、不涉及 Windows VM 的 SSH 通道。",
-      "version": "2.2.0",
+      "version": "2.3.0",
       "source": "https://github.com/athronix/hos-agent-hishell-bridge",
       "x-athronix": {
         "fullName": "athronix/hos-agent-hishell-bridge",
@@ -41,12 +41,12 @@
         "cloneUrl": "https://github.com/athronix/hos-agent-hishell-bridge.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-18T12:01:51Z",
+        "pushedAt": "2026-11-19T06:49:03Z",
         "release": {
-          "tag": "v2.2.0",
-          "url": "https://github.com/athronix/hos-agent-hishell-bridge/releases/tag/v2.2.0",
-          "asset": "https://github.com/athronix/hos-agent-hishell-bridge/releases/download/v2.2.0/hos-agent-hishell-bridge-2.2.0.zip",
-          "published": "2026-11-18T12:01:56Z"
+          "tag": "v2.3.0",
+          "url": "https://github.com/athronix/hos-agent-hishell-bridge/releases/tag/v2.3.0",
+          "asset": "https://github.com/athronix/hos-agent-hishell-bridge/releases/download/v2.3.0/hos-agent-hishell-bridge-2.3.0.zip",
+          "published": "2026-11-19T06:49:09Z"
         },
         "marker": {
           "format": "skill-marker/v1",
@@ -116,7 +116,7 @@
         "cloneUrl": "https://github.com/athronix/winvm-plugin-deploy.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-18T11:20:13Z",
+        "pushedAt": "2026-11-19T02:30:15Z",
         "release": {
           "tag": "v2.3.0",
           "url": "https://github.com/athronix/winvm-plugin-deploy/releases/tag/v2.3.0",
@@ -141,6 +141,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-18T12:03:22+00:00"
+    "syncedAt": "2026-11-19T06:50:22+00:00"
   }
 }
