@@ -3,8 +3,8 @@
   "repo": "https://github.com/athronix/hos-agent-hishell-bridge",
   "clone": "https://github.com/athronix/hos-agent-hishell-bridge.git",
   "visibility": "private",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "defaultBranch": "main",
-  "release": "https://github.com/athronix/hos-agent-hishell-bridge/releases/tag/v2.3.0",
-  "package": "https://github.com/athronix/hos-agent-hishell-bridge/releases/download/v2.3.0/hos-agent-hishell-bridge-2.3.0.zip"
+  "release": "https://github.com/athronix/hos-agent-hishell-bridge/releases/tag/v2.4.0",
+  "package": "https://github.com/athronix/hos-agent-hishell-bridge/releases/download/v2.4.0/hos-agent-hishell-bridge-2.4.0.zip"
 }
