@@ -108,7 +108,7 @@
     {
       "name": "winvm-plugin-deploy",
       "description": "WinVM Bridge（workbuddy-virtual-win-plugin）鸿蒙宿主 + Windows VM 双端部署/卸载/复验的唯一执行权威。结构 = 5 步部署（①建 ssh 免密通道 ②取包装 host 端 ③起 tunnel 并验证 ④装 VM 端（含全局 npm 上游 agent-browser/agent-desktop）、起 mcp/a2a service、上游工具面判据 ⑤verify（三探针 + 终态矩阵 + 上游工具面））+ 3 步卸载（①停 tunnel 卸 host ②停 VM 服务 + 卸 VM 模块 + 卸上游 CLI ③拆 ssh 通道 --remove-ssh-tunnel yes|no 默认 no）；--purge-all 一键回到裸机（②追加 2e 运行时深清 node/codebuddy/私钥，③的同一 SYSTEM 任务里卸 sshd MSI 与两处 authorized_keys）。每步一个脚本、可单独重跑、失败定点重来；第 1 步失败时只给用户一条可整段粘贴的 VM 管理员 PowerShell 命令（远端脚本只从技能仓取、Gitee/GitHub 双源",
-      "version": "2.5.7",
+      "version": "2.5.8",
       "source": "https://github.com/athronix/winvm-plugin-deploy",
       "x-athronix": {
         "fullName": "athronix/winvm-plugin-deploy",
@@ -116,12 +116,12 @@
         "cloneUrl": "https://github.com/athronix/winvm-plugin-deploy.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-20T02:56:11Z",
+        "pushedAt": "2026-11-20T03:17:32Z",
         "release": {
-          "tag": "v2.5.7",
-          "url": "https://github.com/athronix/winvm-plugin-deploy/releases/tag/v2.5.7",
-          "asset": "https://github.com/athronix/winvm-plugin-deploy/releases/download/v2.5.7/winvm-plugin-deploy-2.5.7.zip",
-          "published": "2026-11-20T02:56:16Z"
+          "tag": "v2.5.8",
+          "url": "https://github.com/athronix/winvm-plugin-deploy/releases/tag/v2.5.8",
+          "asset": "https://github.com/athronix/winvm-plugin-deploy/releases/download/v2.5.8/winvm-plugin-deploy-2.5.8.zip",
+          "published": "2026-11-20T03:17:38Z"
         },
         "marker": {
           "format": "skill-marker/v1",
@@ -141,6 +141,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-20T02:57:16+00:00"
+    "syncedAt": "2026-11-20T03:18:58+00:00"
   }
 }
