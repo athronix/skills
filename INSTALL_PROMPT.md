@@ -30,11 +30,22 @@
 
 ## 3. 获取产物（优先 release zip，保证与发布快照一致）
 
+**先把落盘目录定好，后面都用 `$STAGE`**（末尾两条命令都要用到它）：
+
+```bash
+STAGE="${TMPDIR:-$HOME/wbtmp}/athronix-skill"; mkdir -p "$STAGE" || STAGE="$PWD"
+```
+
+> **绝对不要用 `/tmp`**。鸿蒙（HarmonyOS）沙箱的 `/tmp` 是**只读** tmpfs：`touch /tmp/x`
+> 报 `Read-only file system`，`curl -o /tmp/x` 报 `curl: (23) client returned ERROR on write`。
+> 这条错误看起来像网络问题，极易误判成「下载失败/源不可达」而反复重试。
+> 上面这行 `$STAGE` 的三级回退（`$TMPDIR` → `$HOME/wbtmp` → 当前目录）在所有平台都成立。
+
 **方式 A（默认，release zip）**：
 
 - `visibility == "public"`：匿名直链下载即可
   ```bash
-  curl -fsSL "<package>" -o /tmp/<skill-name>-<version>.zip
+  curl -fsSL "<package>" -o "$STAGE/<skill-name>-<version>.zip"
   ```
 - `visibility == "private"`：**不要**直接 curl `package` 直链——私有 asset 的 `browser_download_url` 会 302 到签名域名并剥离 Authorization 头，带 token 也返回 404（实测）。正确姿势走 API：
   ```bash
@@ -42,7 +53,7 @@
     "https://api.github.com/repos/athronix/<skill-name>/releases/tags/v<version>" \
     | grep -o '"url": *"[^"]*assets/[^"]*"' | head -1 | sed 's/.*"url": *"//; s/"$//' \
     | xargs -I{} curl -fsSL -H "Authorization: Bearer $GITHUB_READ_TOKEN" \
-        -H "Accept: application/octet-stream" "{}" -o /tmp/<skill-name>-<version>.zip
+        -H "Accept: application/octet-stream" "{}" -o "$STAGE/<skill-name>-<version>.zip"
   ```
   （取该 release 的 asset API url——不是 browser_download_url——带 token + `Accept: application/octet-stream` 下载；多个 asset 时取 `<skill-name>-<version>.zip` 那个。）
 
@@ -51,7 +62,13 @@
 
 ## 4. 装载到你的 agent 的 skills 目录
 
-解压/整理后目录顶层为 `<skill-name>/`，内含 `SKILL.md`（+ `scripts/` `references/` `assets/` 视 skill 而定）：
+先解压到 `$STAGE`（同样**不要**用 `/tmp`）：
+
+```bash
+unzip -q -o "$STAGE/<skill-name>-<version>.zip" -d "$STAGE"
+```
+
+解压后目录顶层为 `<skill-name>/`，内含 `SKILL.md`（+ `scripts/` `references/` `assets/` 视 skill 而定）：
 
 | Agent | 目标目录 |
 |-------|----------|
@@ -60,6 +77,14 @@
 | 其它 | 该 agent 的 skills 装载目录（遵循根 SKILL.md 的 Agent Skills 通用格式） |
 
 同名已存在 → 先整目录备份（目录名含旧版本号）再覆盖，保证可回滚；**禁止静默删除旧目录**。
+
+> **备份前先判一次符号链接**。不少环境用 `~/.workbuddy/skills/<skill-name>` →
+> 某个 git 仓库目录的软链来共享同一份 skill。此时：
+> - `cp -r` / `cp -a` 备份的是**链接本身**，恢复后得到一条**指向旧路径的悬空链**；
+> - 直接用 `cp -r` 覆盖会**写穿链接**、改到源仓库（更糟的是静默改）。
+>
+> 正确做法：`[ -L <目标> ]` 为真时，只**替换链接指向**（或先 `readlink` 记录原指向再删链重建），
+> 不要对链接目标做递归复制。备份记录里写清「原为符号链接 → <readlink 结果>」。
 
 ## 5. 验证与报告（全部满足才算成功）
 
