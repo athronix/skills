@@ -1,0 +1,10 @@
+{
+  "skill": "bidding-intel-radar",
+  "repo": "https://github.com/athronix/bidding-intel-radar",
+  "clone": "https://github.com/athronix/bidding-intel-radar.git",
+  "visibility": "private",
+  "version": "1.2.0",
+  "defaultBranch": "main",
+  "release": "https://github.com/athronix/bidding-intel-radar/releases/tag/v1.2.0",
+  "package": "https://github.com/athronix/bidding-intel-radar/releases/download/v1.2.0/bidding-intel-radar-1.2.0.zip"
+}

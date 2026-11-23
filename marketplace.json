@@ -6,6 +6,31 @@
   },
   "plugins": [
     {
+      "name": "bidding-intel-radar",
+      "description": "通用招投标情报雷达 skill——基于招投标 MCP（主用启信慧眼 qixinhuiyan-mcp，备用知了标讯 zlbx-bidding）按关键词矩阵每日采集招投标公告（节假日感知窗口：返工首日自动回溯「节前最后工作日+整个假期/周末」），跨日去重、A/B 分层、详情补全、联系方式真实性校验，生成 HTML 日报并经智能体邮箱自动外发。当用户要为某类产品/业务线建立「每日招投标情报采集+日报邮件」任务、提供关键词和收件邮箱即可复用；也适用于补跑某日/某窗口报告、调整关键词矩阵/收件人、排查雷达任务故障。另含按需模式：公告发现 → 结合目标企业画像做 A/B/C 商机适配分级 → 生成可复用雷达配置。曾用中文名「招投标情况雷达」「启信慧眼招投标情报雷达」。",
+      "version": "1.2.0",
+      "source": "https://github.com/athronix/bidding-intel-radar",
+      "x-athronix": {
+        "fullName": "athronix/bidding-intel-radar",
+        "visibility": "private",
+        "cloneUrl": "https://github.com/athronix/bidding-intel-radar.git",
+        "defaultBranch": "main",
+        "topics": [],
+        "pushedAt": "2026-11-23T09:29:11Z",
+        "release": {
+          "tag": "v1.2.0",
+          "url": "https://github.com/athronix/bidding-intel-radar/releases/tag/v1.2.0",
+          "asset": "https://github.com/athronix/bidding-intel-radar/releases/download/v1.2.0/bidding-intel-radar-1.2.0.zip",
+          "published": "2026-11-23T09:29:15Z"
+        },
+        "marker": {
+          "format": "skill-marker/v1",
+          "skill": "SKILL.md",
+          "market": "athronix/skills"
+        }
+      }
+    },
+    {
       "name": "git-skill",
       "description": "Git 操作与双平台发布规范：原子化提交、分支/PR/发版、首次推送、多远程与 worktree。默认提交推 github.com/athronix 私有仓并镜像到 gitee.com/athronix 私有仓；GitHub 平台操作优先 gh CLI，Gitee 平台操作优先官方 gitee CLI，git 传输走 SSH，均失败才降级到 API 与 PAT。当用户说「提交一下，记得推 GitHub 和 Gitee」「规范地提交并推送」「建个分支、提个 PR」「这个仓库首次推送怎么弄」「查下这个 PR 的 CI 挂在哪」「镜像到码云」时使用。不用于纯 Git 概念讲解或撰写 Git 教程。",
       "version": "1.1.2",
@@ -141,6 +166,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-22T09:54:43+00:00"
+    "syncedAt": "2026-11-23T09:30:28+00:00"
   }
 }
