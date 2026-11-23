@@ -10,8 +10,8 @@ Run modes:
 
 Env:
   GH_TOKEN or GITHUB_READ_TOKEN : PAT for API (repo scope needed to see private)
-  OWNER           : repo owner, default athronix
-  MARKETPLACE     : aggregate repo, default athronix/skills
+  OWNER           : repo owner, default sanway-tech
+  MARKETPLACE     : aggregate repo, default sanway-tech/skills
   WORKDIR         : local checkout root of aggregate repo (sync mode, required)
   SKIP_PRIVATE    : "1" to skip private repos (degraded public-only scan)
 
@@ -24,11 +24,12 @@ import sys
 import urllib.error
 import urllib.request
 
-OWNER = os.environ.get("OWNER", "athronix")
-MARKETPLACE = os.environ.get("MARKETPLACE", "athronix/skills")
+OWNER = os.environ.get("OWNER", "sanway-tech")
+MARKETPLACE = os.environ.get("MARKETPLACE", "sanway-tech/skills")
 WORKDIR = os.environ.get("WORKDIR", ".")
 SKIP_PRIVATE = os.environ.get("SKIP_PRIVATE") == "1"
 EXEMPT = {"skills"}  # aggregate repo never counts as a skill repo
+PINNED_FILE = os.environ.get("PINNED_FILE", "pinned-skills.json")
 API = "https://api.github.com"
 
 FRONT_RE = re.compile(r"^---\s*\n(.*?)\n---\s*(?:\n|$)", re.S)
@@ -162,6 +163,49 @@ def repo_license(repo):
     return (data.get("license") or {}).get("spdx_id") or ""
 
 
+def load_pinned():
+    """Load pinned skill entries that must survive a full rebuild.
+
+    Why this exists: `sync` is a *full* rebuild from live repo scan. Any skill
+    whose source repo was deleted/renamed/transferred silently disappears on the
+    next cron run -- even if a human deliberately wants to keep the entry as a
+    historical pointer. `pinned-skills.json` (hand-maintained, repo root) lets a
+    human pin such entries so the rebuild merges them back verbatim.
+
+    Schema: {"skills": [ <entry>, ... ]}  where <entry> has the same shape as a
+    `collect()` item plus optional "pinnedReason".
+    """
+    p = os.path.join(os.path.abspath(WORKDIR), PINNED_FILE)
+    if not os.path.exists(p):
+        return [], []
+    try:
+        doc = json.load(open(p, encoding="utf-8"))
+    except Exception as e:
+        return [], ["pinned-file-unreadable %s: %r" % (PINNED_FILE, e)]
+    items = doc.get("skills") or []
+    out, warns = [], []
+    for it in items:
+        if not isinstance(it, dict) or not it.get("name"):
+            warns.append("pinned-entry-invalid (missing name)")
+            continue
+        # normalise: pinned file may be terse; fill defaults so downstream is safe
+        it.setdefault("skill_name", it["name"])
+        it.setdefault("full_name", "%s/%s" % (OWNER, it["name"]))
+        it.setdefault("visibility", "private")
+        it.setdefault("repo_url", "https://github.com/%s" % it["full_name"])
+        it.setdefault("clone_url", it["repo_url"] + ".git")
+        it.setdefault("default_branch", "main")
+        it.setdefault("topics", [])
+        it.setdefault("updated_at", "")
+        it.setdefault("release", {})
+        it.setdefault("marker", {})
+        it.setdefault("frontmatter_keys", [])
+        it.setdefault("license", "")
+        it.setdefault("description", "")
+        out.append(it)
+    return out, warns
+
+
 def collect():
     skills, warnings = [], []
     for r in list_repos():   # GraphQL nodes: name/visibility/isPrivate/url/pushedAt/description/defaultBranchRef
@@ -198,6 +242,18 @@ def collect():
         }
         skills.append(entry)
     skills.sort(key=lambda s: s["name"])
+    # merge pinned entries: live scan wins on name collision (never let a stale
+    # pin shadow a repo that actually exists again).
+    live = {s["name"] for s in skills}
+    pinned, pwarn = load_pinned()
+    warnings.extend(pwarn)
+    for p in pinned:
+        if p["name"] in live:
+            warnings.append({"repo": p["name"], "warning": "pinned-shadowed-by-live-scan"})
+            continue
+        skills.append(p)
+        warnings.append({"repo": p["name"], "warning": "kept-from-pin (source repo unreachable at scan time)"})
+    skills.sort(key=lambda s: s["name"])
     return skills, warnings
 
 
@@ -220,9 +276,9 @@ def build_marketplace(skills):
         }
         plugins.append(p)
     return {
-        "name": "athronix-skills",
-        "description": "athronix 技能矩阵聚合市场：每个 skill 独立 repo（athronix/<skill>，含 .skill 标记），本文件与 <skill>.link.json 由 CI scan_and_sync 全量重建，请勿手工编辑。Aggregate marketplace of athronix skill repos; machine-generated, do not edit.",
-        "owner": {"name": "athronix"},
+        "name": "sanway-tech-skills",
+        "description": "sanway-tech 技能矩阵聚合市场：每个 skill 独立 repo（sanway-tech/<skill>，含 .skill 标记），本文件与 <skill>.link.json 由 CI scan_and_sync 全量重建，请勿手工编辑。Aggregate marketplace of sanway-tech skill repos; machine-generated, do not edit.",
+        "owner": {"name": "sanway-tech"},
         "plugins": plugins,
     }
 
@@ -232,7 +288,7 @@ def write_outputs(skills):
     mp = build_marketplace(skills)
     mp["x-athronix-market"] = {
         "marketplaceRepo": MARKETPLACE,
-        "skillRepoPattern": "github.com/athronix/<skill> (root .skill marker = skill repo)",
+        "skillRepoPattern": "github.com/sanway-tech/<skill> (root .skill marker = skill repo)",
         "markerSpec": {"file": ".skill", "format": "single-line JSON pointer, never gitignored"},
         "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
         "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",

@@ -1,7 +1,7 @@
-# athronix Skills — 安装程序模板（INSTALL PROMPT）
+# sanway-tech Skills — 安装程序模板（INSTALL PROMPT）
 
 > **用法**：对你的 AI agent 说一句 ——
-> `请按照 https://raw.githubusercontent.com/athronix/skills/main/INSTALL_PROMPT.md 安装 <skill-name>`
+> `请按照 https://raw.githubusercontent.com/sanway-tech/skills/main/INSTALL_PROMPT.md 安装 <skill-name>`
 > 其中 `<skill-name>` 替换为目标 skill（如 `skill-dev-git`）。
 >
 > 本文件人工维护、public 匿名可读；`marketplace.json` / `<skill>.link.json` 由聚合仓 CI 机器重建。
@@ -9,15 +9,15 @@
 
 ## 1. 读指针（聚合仓 public，匿名访问）
 
-`GET https://raw.githubusercontent.com/athronix/skills/main/<skill-name>.link.json`
+`GET https://raw.githubusercontent.com/sanway-tech/skills/main/<skill-name>.link.json`
 
 取字段：`repo` / `clone` / `visibility` / `version` / `package`。
 （`version` 不带 v 前缀；release tag 为 `v<version>`。）
 
 - **raw 404 别急着下结论**：raw.githubusercontent.com 会缓存 404（负缓存），新发布/刚生成的文件常出现"假 404"。收到 404 先走实时 API 复核一次：
-  `GET https://api.github.com/repos/athronix/skills/contents/<skill-name>.link.json`（带 `Accept: application/vnd.github.raw` 头，公开仓可匿名）→ 200 则直接采用其内容继续；仍 404 才认定文件不存在。
-- 确认不存在 → 兜底：`GET https://api.github.com/repos/athronix/skills/contents/marketplace.json`（同上带 raw accept 头），在 `plugins[]` 找 `name==<skill-name>` 的条目（`source` 即 repo，`x-athronix.release.asset` 即 package）。
-- 仍找不到 → 向用户报告「该 skill 未在 athronix 市场注册」并停止。**不要猜测近似名字的仓。**
+  `GET https://api.github.com/repos/sanway-tech/skills/contents/<skill-name>.link.json`（带 `Accept: application/vnd.github.raw` 头，公开仓可匿名）→ 200 则直接采用其内容继续；仍 404 才认定文件不存在。
+- 确认不存在 → 兜底：`GET https://api.github.com/repos/sanway-tech/skills/contents/marketplace.json`（同上带 raw accept 头），在 `plugins[]` 找 `name==<skill-name>` 的条目（`source` 即 repo，`x-athronix.release.asset` 即 package）。
+- 仍找不到 → 向用户报告「该 skill 未在 sanway-tech 市场注册」并停止。**不要猜测近似名字的仓。**
 
 ## 2. 凭据（skill 仓默认 private）
 
@@ -33,7 +33,7 @@
 **先把落盘目录定好，后面都用 `$STAGE`**（末尾两条命令都要用到它）：
 
 ```bash
-STAGE="${TMPDIR:-$HOME/wbtmp}/athronix-skill"; mkdir -p "$STAGE" || STAGE="$PWD"
+STAGE="${TMPDIR:-$HOME/wbtmp}/sanway-tech-skill"; mkdir -p "$STAGE" || STAGE="$PWD"
 ```
 
 > **绝对不要用 `/tmp`**。鸿蒙（HarmonyOS）沙箱的 `/tmp` 是**只读** tmpfs：`touch /tmp/x`
@@ -50,14 +50,14 @@ STAGE="${TMPDIR:-$HOME/wbtmp}/athronix-skill"; mkdir -p "$STAGE" || STAGE="$PWD"
 - `visibility == "private"`：**不要**直接 curl `package` 直链——私有 asset 的 `browser_download_url` 会 302 到签名域名并剥离 Authorization 头，带 token 也返回 404（实测）。正确姿势走 API：
   ```bash
   curl -fsSL -H "Authorization: Bearer $GITHUB_READ_TOKEN" \
-    "https://api.github.com/repos/athronix/<skill-name>/releases/tags/v<version>" \
+    "https://api.github.com/repos/sanway-tech/<skill-name>/releases/tags/v<version>" \
     | grep -o '"url": *"[^"]*assets/[^"]*"' | head -1 | sed 's/.*"url": *"//; s/"$//' \
     | xargs -I{} curl -fsSL -H "Authorization: Bearer $GITHUB_READ_TOKEN" \
         -H "Accept: application/octet-stream" "{}" -o "$STAGE/<skill-name>-<version>.zip"
   ```
   （取该 release 的 asset API url——不是 browser_download_url——带 token + `Accept: application/octet-stream` 下载；多个 asset 时取 `<skill-name>-<version>.zip` 那个。）
 
-- 需要可编辑源码或上面失败 → **方式 B**：`git clone <clone>` 并 checkout tag `v<version>`。私有仓 clone 形式：`https://x-access-token:$GITHUB_READ_TOKEN@github.com/athronix/<skill-name>.git`（token 不落 remote 配置）。
+- 需要可编辑源码或上面失败 → **方式 B**：`git clone <clone>` 并 checkout tag `v<version>`。私有仓 clone 形式：`https://x-access-token:$GITHUB_READ_TOKEN@github.com/sanway-tech/<skill-name>.git`（token 不落 remote 配置）。
 - tag 不存在（如本地已 release 未同步市场）→ 退回 clone 默认分支 HEAD，并在最终报告标注「装的是 HEAD 非发布版」。
 
 ## 4. 装载到你的 agent 的 skills 目录

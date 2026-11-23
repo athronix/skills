@@ -29,8 +29,8 @@ jobs:
       - name: scan owner repos (PAT sees private siblings; default GITHUB_TOKEN cannot)
         env:
           GH_TOKEN: ${{ secrets.GH_READ_TOKEN }}   # fine-grained PAT: Contents read, All repositories
-          OWNER: athronix                         
-          MARKETPLACE: athronix/skills            
+          OWNER: sanway-tech                      
+          MARKETPLACE: sanway-tech/skills         
           WORKDIR: ${{ github.workspace }}
         run: python scripts/scan_and_sync.py sync
       - name: commit if changed
@@ -38,7 +38,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
             git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-              commit -m "chore(marketplace): [skip ci] auto-sync from athronix skill repos"
+              commit -m "chore(marketplace): [skip ci] auto-sync from sanway-tech skill repos"
             git pull --rebase origin main && git push origin HEAD:main
           else
             echo "marketplace already in sync"

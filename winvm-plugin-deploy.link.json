@@ -1,10 +1,10 @@
 {
   "skill": "winvm-plugin-deploy",
-  "repo": "https://github.com/athronix/winvm-plugin-deploy",
-  "clone": "https://github.com/athronix/winvm-plugin-deploy.git",
+  "repo": "https://github.com/sanway-tech/winvm-plugin-deploy",
+  "clone": "https://github.com/sanway-tech/winvm-plugin-deploy.git",
   "visibility": "public",
-  "version": "2.5.9",
+  "version": "2.6.0",
   "defaultBranch": "main",
-  "release": "https://github.com/athronix/winvm-plugin-deploy/releases/tag/v2.5.9",
-  "package": "https://github.com/athronix/winvm-plugin-deploy/releases/download/v2.5.9/winvm-plugin-deploy-2.5.9.zip"
+  "release": "https://github.com/sanway-tech/winvm-plugin-deploy/releases/tag/v2.6.0",
+  "package": "https://github.com/sanway-tech/winvm-plugin-deploy/releases/download/v2.6.0/winvm-plugin-deploy-2.6.0.zip"
 }

@@ -1,0 +1,113 @@
+{
+  "_comment": "手工维护：full-rebuild 时这些条目会被 merge 回 marketplace.json / <skill>.link.json。用于保留源仓已删除但需继续露出的历史 skill。live scan 命中同名时会以 live 为准。",
+  "skills": [
+    {
+      "name": "git-skill",
+      "full_name": "athronix/git-skill",
+      "skill_name": "git-skill",
+      "version": "1.1.2",
+      "description": "Git 操作与双平台发布规范：原子化提交、分支/PR/发版、首次推送、多远程与 worktree。默认提交推 github.com/athronix 私有仓并镜像到 gitee.com/athronix 私有仓；GitHub 平台操作优先 gh CLI，Gitee 平台操作优先官方 gitee CLI，git 传输走 SSH，均失败才降级到 API 与 PAT。当用户说「提交一下，记得推 GitHub 和 Gitee」「规范地提交并推送」「建个分支、提个 PR」「这个仓库首次推送怎么弄」「查下这个 PR 的 CI 挂在哪」「镜像到码云」时使用。不用于纯 Git 概念讲解或撰写 Git 教程。",
+      "license": "",
+      "visibility": "private",
+      "repo_url": "https://github.com/athronix/git-skill",
+      "clone_url": "https://github.com/athronix/git-skill.git",
+      "default_branch": "main",
+      "topics": [],
+      "updated_at": "2026-11-11T09:13:44Z",
+      "release": {
+        "tag": "v1.1.2",
+        "url": "https://github.com/athronix/git-skill/releases/tag/v1.1.2",
+        "asset": "https://github.com/athronix/git-skill/releases/download/v1.1.2/git-skill-1.1.2.zip",
+        "published": "2026-11-11T09:13:49Z"
+      },
+      "marker": {
+        "format": "skill-marker/v1",
+        "skill": "SKILL.md",
+        "market": "athronix/skills"
+      },
+      "frontmatter_keys": [],
+      "pinnedReason": "源仓在 GitHub 上已不可达（git ls-remote: Repository not found），按用户 2026-11-23 裁定保留为历史指针，不参与自动清理。"
+    },
+    {
+      "name": "hos-agent-hishell-bridge",
+      "full_name": "athronix/hos-agent-hishell-bridge",
+      "skill_name": "hos-agent-hishell-bridge",
+      "version": "2.5.0",
+      "description": "打通、使用并运维 HarmonyOS NEXT 上「AI Agent 沙箱 → HiShell 沙箱」的命令通道：用 app-shell-bridge 的发布版（GitHub/Gitee 项目 Release，私有仓需 PAT，基线 v3.3.0）在双端各自安装、绑定 APP_ID、拉起常驻服务、成对授权，双向回环验收通过后由 Agent 下命令或派任务到 HiShell 执行并取回输出；建成后持续管理任务台账与维护通道健康。本技能应在以下情形使用：让鸿蒙 AI Agent 到 HiShell 里跑命令、读文件、装工具；通道疑似故障（submit 一直 waiting、rule=undeclared、signature mismatch、identity_mismatch）；换发布版重建或升级通道；看看发出去的任务哪些失败、巡检通道是否健康、cancel 一条跑着的任务、清理 hishell 任务、查日志与失败复盘。不承担日常命令全量参考（见发布包 docs/）、不绕过 OS 沙箱隔离、不涉及 Windows VM 的 SSH 通道。",
+      "license": "",
+      "visibility": "private",
+      "repo_url": "https://github.com/athronix/hos-agent-hishell-bridge",
+      "clone_url": "https://github.com/athronix/hos-agent-hishell-bridge.git",
+      "default_branch": "main",
+      "topics": [],
+      "updated_at": "2026-11-20T02:53:06Z",
+      "release": {
+        "tag": "v2.5.0",
+        "url": "https://github.com/athronix/hos-agent-hishell-bridge/releases/tag/v2.5.0",
+        "asset": "https://github.com/athronix/hos-agent-hishell-bridge/releases/download/v2.5.0/hos-agent-hishell-bridge-2.5.0.zip",
+        "published": "2026-11-20T02:53:41Z"
+      },
+      "marker": {
+        "format": "skill-marker/v1",
+        "skill": "SKILL.md",
+        "market": "athronix/skills"
+      },
+      "frontmatter_keys": [],
+      "pinnedReason": "源仓在 GitHub 上已不可达（git ls-remote: Repository not found），按用户 2026-11-23 裁定保留为历史指针，不参与自动清理。"
+    },
+    {
+      "name": "skill-dev-git",
+      "full_name": "athronix/skill-dev-git",
+      "skill_name": "skill-dev-git",
+      "version": "1.5.1",
+      "description": "管理 athronix 技能矩阵的研发与发布通道：每个 skill 独立项目(~/Documents/Projects/skills/<skill>)+独立 repo(athronix/<skill>，.skill 标记)+母项目 symlink 关联+使用侧挂载+聚合仓 athronix/skills marketplace.json 自动同步(CI 单一写者+cron 兜底)+双通道提交纪律与巡检。当用户说'新建 skill 项目'、'把 skill 做成独立仓库'、'从当前项目派生 skill'、'发布 skill'、'skill 提交 push'、'同步 marketplace'、'检查 skill 未提交改动'时使用。不用于 skill 内容创作本身。",
+      "license": "",
+      "visibility": "private",
+      "repo_url": "https://github.com/athronix/skill-dev-git",
+      "clone_url": "https://github.com/athronix/skill-dev-git.git",
+      "default_branch": "main",
+      "topics": [],
+      "updated_at": "2026-11-16T10:47:07Z",
+      "release": {
+        "tag": "v1.5.1",
+        "url": "https://github.com/athronix/skill-dev-git/releases/tag/v1.5.1",
+        "asset": "https://github.com/athronix/skill-dev-git/releases/download/v1.5.1/skill-dev-git-1.5.1.zip",
+        "published": "2026-11-12T09:04:35Z"
+      },
+      "marker": {
+        "format": "skill-marker/v1",
+        "skill": "SKILL.md",
+        "market": "athronix/skills"
+      },
+      "frontmatter_keys": [],
+      "pinnedReason": "源仓在 GitHub 上已不可达（git ls-remote: Repository not found），按用户 2026-11-23 裁定保留为历史指针，不参与自动清理。"
+    },
+    {
+      "name": "swp-deploy-generator",
+      "full_name": "athronix/swp-deploy-generator",
+      "skill_name": "swp-deploy-generator",
+      "version": "1.4.0",
+      "description": "为软件项目构建标准化部署套件：统一入口 + 三维矩阵（host/docker × 本机/远程 × 源码/仓库/发布包）+ 8 动作（deploy/undeploy/start/stop/restart/status/logs/health）+ .env 默认值与 --deploy-* 覆盖 + 8×8 全矩阵计时验证与避坑手册。当用户说'给项目搞部署脚本'、'做部署套件'、'设计 deploy 统一入口'、'部署体系怎么测试验证'、'支持本机和远程源码和发布包的部署'时使用。模板为 bash+ssh+docker 路线并注明 k8s 等他栈扩展位。",
+      "license": "",
+      "visibility": "private",
+      "repo_url": "https://github.com/athronix/swp-deploy-generator",
+      "clone_url": "https://github.com/athronix/swp-deploy-generator.git",
+      "default_branch": "main",
+      "topics": [],
+      "updated_at": "2026-11-09T09:10:55Z",
+      "release": {
+        "tag": "v1.4.0",
+        "url": "https://github.com/athronix/swp-deploy-generator/releases/tag/v1.4.0",
+        "asset": "https://github.com/athronix/swp-deploy-generator/releases/download/v1.4.0/swp-deploy-generator-1.4.0.zip",
+        "published": "2026-11-09T09:11:01Z"
+      },
+      "marker": {
+        "format": "skill-marker/v1",
+        "skill": "SKILL.md",
+        "market": "athronix/skills"
+      },
+      "frontmatter_keys": [],
+      "pinnedReason": "源仓在 GitHub 上已不可达（git ls-remote: Repository not found），按用户 2026-11-23 裁定保留为历史指针，不参与自动清理。"
+    }
+  ]
+}
