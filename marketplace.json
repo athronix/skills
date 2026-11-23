@@ -81,6 +81,31 @@
       }
     },
     {
+      "name": "new-domain-name-nginx-proxy",
+      "description": "This skill should be used when adding HTTPS reverse proxy for a new domain name in front of an already-running HTTP service with Docker nginx and Let's Encrypt/certbot. Trigger scenarios include: 给新域名加 nginx 反代, 新域名 HTTPS 反向代理, 配置 certbot Let's Encrypt 证书, 域名证书续期/renew, nginx 反代单个域名, ACME webroot 挑战 301/404, renew 后 reload nginx, SSE 反代缓冲, host.docker.internal 502. It guides compose envsubst templating, certificate issuance and renewal via a global deploy hook, external certificate verification, and product",
+      "version": "1.0.0",
+      "source": "https://github.com/athronix/new-domain-name-nginx-proxy",
+      "x-athronix": {
+        "fullName": "athronix/new-domain-name-nginx-proxy",
+        "visibility": "private",
+        "cloneUrl": "https://github.com/athronix/new-domain-name-nginx-proxy.git",
+        "defaultBranch": "main",
+        "topics": [],
+        "pushedAt": "2026-11-23T10:07:46Z",
+        "release": {
+          "tag": "v1.0.0",
+          "url": "https://github.com/athronix/new-domain-name-nginx-proxy/releases/tag/v1.0.0",
+          "asset": "https://github.com/athronix/new-domain-name-nginx-proxy/releases/download/v1.0.0/new-domain-name-nginx-proxy-1.0.0.zip",
+          "published": "2026-11-23T10:07:51Z"
+        },
+        "marker": {
+          "format": "skill-marker/v1",
+          "skill": "SKILL.md",
+          "market": "athronix/skills"
+        }
+      }
+    },
+    {
       "name": "skill-dev-git",
       "description": "管理 athronix 技能矩阵的研发与发布通道：每个 skill 独立项目(~/Documents/Projects/skills/<skill>)+独立 repo(athronix/<skill>，.skill 标记)+母项目 symlink 关联+使用侧挂载+聚合仓 athronix/skills marketplace.json 自动同步(CI 单一写者+cron 兜底)+双通道提交纪律与巡检。当用户说'新建 skill 项目'、'把 skill 做成独立仓库'、'从当前项目派生 skill'、'发布 skill'、'skill 提交 push'、'同步 marketplace'、'检查 skill 未提交改动'时使用。不用于 skill 内容创作本身。",
       "version": "1.5.1",
@@ -166,6 +191,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-23T09:30:28+00:00"
+    "syncedAt": "2026-11-23T10:09:45+00:00"
   }
 }

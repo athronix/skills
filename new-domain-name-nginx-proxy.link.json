@@ -1,0 +1,10 @@
+{
+  "skill": "new-domain-name-nginx-proxy",
+  "repo": "https://github.com/athronix/new-domain-name-nginx-proxy",
+  "clone": "https://github.com/athronix/new-domain-name-nginx-proxy.git",
+  "visibility": "private",
+  "version": "1.0.0",
+  "defaultBranch": "main",
+  "release": "https://github.com/athronix/new-domain-name-nginx-proxy/releases/tag/v1.0.0",
+  "package": "https://github.com/athronix/new-domain-name-nginx-proxy/releases/download/v1.0.0/new-domain-name-nginx-proxy-1.0.0.zip"
+}
