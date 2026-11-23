@@ -29,8 +29,8 @@ jobs:
       - name: scan owner repos (PAT sees private siblings; default GITHUB_TOKEN cannot)
         env:
           GH_TOKEN: ${{ secrets.GH_READ_TOKEN }}   # fine-grained PAT: Contents read, All repositories
-          OWNER: sanway-tech                      
-          MARKETPLACE: sanway-tech/skills         
+          OWNER: sanway-tech
+          MARKETPLACE: sanway-tech/skills
           WORKDIR: ${{ github.workspace }}
         run: python scripts/scan_and_sync.py sync
       - name: commit if changed
@@ -45,20 +45,59 @@ jobs:
           fi
           # pull --rebase 兜底：sync 运行期间远端可能被上一轮 CI 推进（fetch first 竞态）；
           # checkout persist-credentials:true 已把凭据写入 remote，pull 直接可用
-      - name: trigger gitee mirror pull
+      - name: "sync to gitee (auto: mirror-pull when mirror repo, otherwise direct push)"
         env:
-          GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}   # Gitee 私人令牌（仓库推送权限）；未配置则优雅跳过
-          MIRROR_R: ${{ vars.GITEE_MIRROR_REPO }}   # repo 自定义 variable：Gitee 镜像仓全名；留空跳过
+          GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}   # Gitee 私人令牌（projects 读写）
+          MIRROR_R: ${{ vars.GITEE_MIRROR_REPO }}   # repo variable：Gitee 侧全名；留空整步跳过
         run: |
-          # Gitee "与 GitHub 同步" Pull 镜像的手动触发端点（官方 API，实测 204）。
-          if [ -z "${MIRROR_R:-}" ]; then echo "mirror disabled (vars.GITEE_MIRROR_REPO empty)"; exit 0; fi
-          if [ -z "${GITEE_TOKEN:-}" ]; then echo "::warning::GITEE_TOKEN secret not set; mirror pull skipped"; exit 0; fi
-          # endpoint 不带前导斜杠；重试 1 次，仍失败则本步骤失败使 run 变红（可观测）。
-          for i in 1 2; do
-            code="$(curl -s -o /dev/null -w '%{http_code}' -X POST \
-              "https://gitee.com/api/v5/repos/$MIRROR_R/remote_mirror/pull?access_token=${GITEE_TOKEN}")"
-            echo "gitee mirror pull attempt $i: http=$code"
-            if [ "$code" = "204" ] || [ "$code" = "200" ]; then exit 0; fi
-            sleep 5
-          done
-          echo "::error::gitee mirror pull failed (last http=$code)"; exit 1
+          # 两条通道，运行时自动择一（2026-11-23 引入）：
+          #   A 镜像仓   → POST /repos/{r}/remote_mirror/pull（官方端点，204/200 视为成功）
+          #   B 非镜像仓 → PAT over HTTPS 直接 git push（该端点必 404，故不能只走 A）
+          # 判据 = GET /repos/{r} 的 mirror_from 字段，不靠人工开关；日后若在 Gitee 用
+          # 「从 GitHub 导入」重建为镜像仓，本步自动切回 A，workflow 无需再改。
+          set -uo pipefail
+
+          if [ -z "${MIRROR_R:-}" ]; then echo "gitee sync disabled (vars.GITEE_MIRROR_REPO empty)"; exit 0; fi
+          if [ -z "${GITEE_TOKEN:-}" ]; then echo "::warning::GITEE_TOKEN secret not set; gitee sync skipped"; exit 0; fi
+
+          api="https://gitee.com/api/v5/repos/$MIRROR_R"
+
+          KIND="$(curl -sS -m 25 --connect-timeout 10 "$api?access_token=${GITEE_TOKEN}" 2>/dev/null \
+            | python3 -c '
+          import json, sys
+          try:
+              j = json.load(sys.stdin)
+              print("MIRROR" if (j.get("mirror_from") or "").strip() else "PLAIN")
+          except Exception as e:
+              print("probe parse failed: %s" % e, file=sys.stderr)
+              print("PLAIN")
+          ')"
+          echo "gitee repo kind = $KIND"
+
+          if [ "$KIND" = "MIRROR" ]; then
+            for i in 1 2; do
+              code="$(curl -s -o /dev/null -w '%{http_code}' -X POST "$api/remote_mirror/pull?access_token=${GITEE_TOKEN}")"
+              echo "gitee mirror-pull attempt $i: http=$code"
+              if [ "$code" = "204" ] || [ "$code" = "200" ]; then echo "GITEE_SYNC=mirror-pull"; exit 0; fi
+              sleep 5
+            done
+            echo "::warning::mirror-pull failed (last http=$code); falling back to direct push"
+          fi
+
+          # token 落 credential store 临时文件，避免出现在命令行 / 日志 / .git/config
+          CRED="$RUNNER_TEMP/.git-credentials"
+          trap 'rm -f "$CRED"' EXIT
+          git config --local credential.helper "store --file=$CRED"
+          printf 'https://oauth2:%s@gitee.com\n' "$GITEE_TOKEN" > "$CRED"
+          chmod 600 "$CRED"
+
+          git remote remove gitee 2>/dev/null || true
+          git remote add gitee "https://gitee.com/${MIRROR_R}.git"
+
+          if git push gitee HEAD:main; then
+            echo "GITEE_SYNC=direct-push"
+          elif git push --force gitee HEAD:main; then
+            echo "GITEE_SYNC=direct-push(forced)  # Gitee 历史与 GitHub main 分叉，以 GitHub 为准"
+          else
+            echo "::error::gitee direct push failed"; exit 1
+          fi
