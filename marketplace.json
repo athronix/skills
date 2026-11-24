@@ -82,8 +82,8 @@
     },
     {
       "name": "new-domain-name-nginx-proxy",
-      "description": "This skill should be used when deploying a brand-new service behind an nginx HTTPS reverse proxy on a fresh domain, especially when one service exposes multiple endpoint types at once: SPA frontend, regular non-streaming HTTP API, SSE streaming API, file upload and static assets. Trigger scenarios include: 新服务上线配 nginx 反代, 给新服务配置新域名反向代理, 前端后端同源反代, location 分发多端点, SPA history 刷新 404, SSE 流式接口被缓冲, 普通 API 反代超时, 文件上传 502 或 413, proxy_pass 尾斜杠, 新域名 HTTPS, certbot Let's Encrypt 证书签发与续期, ACME webroot 301 404, 配置模板",
-      "version": "1.1.0",
+      "description": "This skill should be used when deploying a brand-new service behind an nginx HTTPS reverse proxy on a fresh domain, especially when one service exposes multiple endpoint types at once: SPA frontend, regular non-streaming HTTP API, SSE streaming API, file upload and static assets. Trigger scenarios include: 新服务上线配 nginx 反代, 给新服务配置新域名反向代理, 前端后端同源反代, location 分发多端点, SPA history 刷新 404, SSE 流式接口被缓冲, 普通 API 反代超时, 文件上传 502 或 413, proxy_pass 尾斜杠, location 尾斜杠 POST 降级 301, 新域名 HTTPS, certbot Let's Encrypt 证书签发与续期, ",
+      "version": "1.2.0",
       "source": "https://github.com/athronix/new-domain-name-nginx-proxy",
       "x-athronix": {
         "fullName": "athronix/new-domain-name-nginx-proxy",
@@ -91,12 +91,12 @@
         "cloneUrl": "https://github.com/athronix/new-domain-name-nginx-proxy.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-23T11:36:32Z",
+        "pushedAt": "2026-11-24T06:53:27Z",
         "release": {
-          "tag": "v1.1.0",
-          "url": "https://github.com/athronix/new-domain-name-nginx-proxy/releases/tag/v1.1.0",
-          "asset": "https://github.com/athronix/new-domain-name-nginx-proxy/releases/download/v1.1.0/new-domain-name-nginx-proxy-1.1.0.zip",
-          "published": "2026-11-23T11:36:37Z"
+          "tag": "v1.2.0",
+          "url": "https://github.com/athronix/new-domain-name-nginx-proxy/releases/tag/v1.2.0",
+          "asset": "https://github.com/athronix/new-domain-name-nginx-proxy/releases/download/v1.2.0/new-domain-name-nginx-proxy-1.2.0.zip",
+          "published": "2026-11-24T06:53:32Z"
         },
         "marker": {
           "format": "skill-marker/v1",
@@ -191,6 +191,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-23T11:37:43+00:00"
+    "syncedAt": "2026-11-24T06:54:36+00:00"
   }
 }

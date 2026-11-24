@@ -3,8 +3,8 @@
   "repo": "https://github.com/athronix/new-domain-name-nginx-proxy",
   "clone": "https://github.com/athronix/new-domain-name-nginx-proxy.git",
   "visibility": "private",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "defaultBranch": "main",
-  "release": "https://github.com/athronix/new-domain-name-nginx-proxy/releases/tag/v1.1.0",
-  "package": "https://github.com/athronix/new-domain-name-nginx-proxy/releases/download/v1.1.0/new-domain-name-nginx-proxy-1.1.0.zip"
+  "release": "https://github.com/athronix/new-domain-name-nginx-proxy/releases/tag/v1.2.0",
+  "package": "https://github.com/athronix/new-domain-name-nginx-proxy/releases/download/v1.2.0/new-domain-name-nginx-proxy-1.2.0.zip"
 }
