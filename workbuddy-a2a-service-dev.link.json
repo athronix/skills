@@ -1,0 +1,10 @@
+{
+  "skill": "workbuddy-a2a-service-dev",
+  "repo": "https://github.com/athronix/workbuddy-a2a-service-dev",
+  "clone": "https://github.com/athronix/workbuddy-a2a-service-dev.git",
+  "visibility": "private",
+  "version": "1.0.0",
+  "defaultBranch": "main",
+  "release": "https://github.com/athronix/workbuddy-a2a-service-dev/releases/tag/v1.0.0",
+  "package": "https://github.com/athronix/workbuddy-a2a-service-dev/releases/download/v1.0.0/workbuddy-a2a-service-dev-1.0.0.zip"
+}
