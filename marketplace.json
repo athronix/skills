@@ -183,7 +183,7 @@
     {
       "name": "workbuddy-a2a-service-dev",
       "description": "Build, harden and ship an A2A service on top of WorkBuddy's built-in codebuddy-lite-wb (stdio `--a2a` bridge). Covers the credential model (at-rest session vs self-owned token vault), protocol dialect translation (PascalCase proto-JSON ↔ A2A v0.3/v1.0), supervisor and deployment topology (boot autostart, crash restart, minute watchdog), and the verification checklist. Use when a user wants to expose WorkBuddy or CodeBuddy as an A2A endpoint, delegate tasks between agents or machines, diagnose \"already signe",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "source": "https://github.com/athronix/workbuddy-a2a-service-dev",
       "x-athronix": {
         "fullName": "athronix/workbuddy-a2a-service-dev",
@@ -191,12 +191,12 @@
         "cloneUrl": "https://github.com/athronix/workbuddy-a2a-service-dev.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-24T11:51:58Z",
+        "pushedAt": "2026-11-25T01:37:45Z",
         "release": {
-          "tag": "v1.0.0",
-          "url": "https://github.com/athronix/workbuddy-a2a-service-dev/releases/tag/v1.0.0",
-          "asset": "https://github.com/athronix/workbuddy-a2a-service-dev/releases/download/v1.0.0/workbuddy-a2a-service-dev-1.0.0.zip",
-          "published": "2026-11-24T11:52:03Z"
+          "tag": "v1.1.0",
+          "url": "https://github.com/athronix/workbuddy-a2a-service-dev/releases/tag/v1.1.0",
+          "asset": "https://github.com/athronix/workbuddy-a2a-service-dev/releases/download/v1.1.0/workbuddy-a2a-service-dev-1.1.0.zip",
+          "published": "2026-11-25T01:37:49Z"
         },
         "marker": {
           "format": "skill-marker/v1",
@@ -216,6 +216,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-24T12:38:08+00:00"
+    "syncedAt": "2026-11-25T01:39:12+00:00"
   }
 }
