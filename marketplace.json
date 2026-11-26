@@ -58,7 +58,7 @@
     {
       "name": "hos-agent-hishell-bridge",
       "description": "打通、使用并运维 HarmonyOS NEXT 上「AI Agent 沙箱 → HiShell 沙箱」的命令通道：用 app-shell-bridge 的发布版（GitHub/Gitee 项目 Release，私有仓需 PAT，基线 v3.3.0）在双端各自安装、绑定 APP_ID、拉起常驻服务、成对授权，双向回环验收通过后由 Agent 下命令或派任务到 HiShell 执行并取回输出；建成后持续管理任务台账与维护通道健康。本技能应在以下情形使用：让鸿蒙 AI Agent 到 HiShell 里跑命令、读文件、装工具；通道疑似故障（submit 一直 waiting、rule=undeclared、signature mismatch、identity_mismatch）；换发布版重建或升级通道；看看发出去的任务哪些失败、巡检通道是否健康、cancel 一条跑着的任务、清理 hishell 任务、查日志与失败复盘。不承担日常命令全量参考（见发布包 docs/）、不绕过 OS 沙箱隔离、不涉及 Windows VM 的 SSH 通道。",
-      "version": "2.5.0",
+      "version": "2.6.0",
       "source": "https://github.com/athronix/hos-agent-hishell-bridge",
       "x-athronix": {
         "fullName": "athronix/hos-agent-hishell-bridge",
@@ -66,12 +66,12 @@
         "cloneUrl": "https://github.com/athronix/hos-agent-hishell-bridge.git",
         "defaultBranch": "main",
         "topics": [],
-        "pushedAt": "2026-11-20T02:53:06Z",
+        "pushedAt": "2026-11-26T02:01:42Z",
         "release": {
-          "tag": "v2.5.0",
-          "url": "https://github.com/athronix/hos-agent-hishell-bridge/releases/tag/v2.5.0",
-          "asset": "https://github.com/athronix/hos-agent-hishell-bridge/releases/download/v2.5.0/hos-agent-hishell-bridge-2.5.0.zip",
-          "published": "2026-11-20T02:53:41Z"
+          "tag": "v2.6.0",
+          "url": "https://github.com/athronix/hos-agent-hishell-bridge/releases/tag/v2.6.0",
+          "asset": "https://github.com/athronix/hos-agent-hishell-bridge/releases/download/v2.6.0/hos-agent-hishell-bridge-2.6.0.zip",
+          "published": "2026-11-26T02:02:00Z"
         },
         "marker": {
           "format": "skill-marker/v1",
@@ -216,6 +216,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-25T11:28:14+00:00"
+    "syncedAt": "2026-11-26T02:03:12+00:00"
   }
 }
