@@ -204,6 +204,31 @@
           "market": "athronix/skills"
         }
       }
+    },
+    {
+      "name": "workbuddy-deploy-customed-a2a",
+      "description": "在 WorkBuddy 桌面端挂载自定义 A2A agent（零侵入、A2A 原生协议），让 R 机桌面端发现并委派任务给 L 机的自建 A2A 服务（如 workbuddy-a2a-service）。采用产品公开的 ACC_PRODUCT_CONFIG_* 配置注入 + hosts 单子域精确映射，不改 app.asar、不打补丁、不走 MCP、不写 SDK 宿主。当用户说'把自建 A2A 服务挂到 WorkBuddy 桌面端'、'桌面端发现不了自定义 a2a agent'、'CODEBUDDY_REMOTE_AGENTS_URL 被覆盖'、'R 机委派任务给 L 机'、'a2a agents 列表为空'、'workbuddy 挂载远程 agent'时使用。含已实测成功的完整部署流程、blocker 排查、踩坑教训与可复用脚本。中文触发：workbuddy 挂载 a2a、自定义 a2a agent、桌面端 a2a、跨机委派、agents 列表空。",
+      "version": "1.0.0",
+      "source": "https://github.com/athronix/workbuddy-deploy-customed-a2a",
+      "x-athronix": {
+        "fullName": "athronix/workbuddy-deploy-customed-a2a",
+        "visibility": "private",
+        "cloneUrl": "https://github.com/athronix/workbuddy-deploy-customed-a2a.git",
+        "defaultBranch": "main",
+        "topics": [],
+        "pushedAt": "2026-11-27T03:31:15Z",
+        "release": {
+          "tag": "v1.0.0",
+          "url": "https://github.com/athronix/workbuddy-deploy-customed-a2a/releases/tag/v1.0.0",
+          "asset": "https://github.com/athronix/workbuddy-deploy-customed-a2a/releases/download/v1.0.0/workbuddy-deploy-customed-a2a-1.0.0.zip",
+          "published": "2026-11-27T03:31:20Z"
+        },
+        "marker": {
+          "format": "skill-marker/v1",
+          "skill": "SKILL.md",
+          "market": "athronix/skills"
+        }
+      }
     }
   ],
   "x-athronix-market": {
@@ -216,6 +241,6 @@
     "linkFiles": "<skill>.link.json = machine-generated repo hyperlink",
     "consumerNotes": "Any AI agent may install a skill: git clone a <skill>.link.json target repo (private needs PAT) or download release asset zip from release.asset.",
     "syncedBy": "github.com/skills/.github/workflows/sync-marketplace.yml",
-    "syncedAt": "2026-11-27T02:59:35+00:00"
+    "syncedAt": "2026-11-27T03:32:39+00:00"
   }
 }
